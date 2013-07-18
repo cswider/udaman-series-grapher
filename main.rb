@@ -7,10 +7,16 @@ require 'uri'
 require 'dm-core'
 require 'dm-timestamps'
 require 'dm-validations'
-require 'dm-sqlite-adapter'
+require 'dm-postgres-adapter'
+#require 'dm-sqlite-adapter
 require 'dm-migrations'
 
-DataMapper.setup :default, "sqlite://#{Dir.pwd}/database.db"
+require 'warden'
+
+DataMapper.setup(:default, "postgres://intern:ud@m@n@localhost/database")
+
+#DataMapper.setup :default, "sqlite://#{Dir.pwd}/database.db"
+
 class CachedFile
         include DataMapper::Resource
         property :id , Serial
@@ -18,16 +24,65 @@ class CachedFile
         property :jsonFile , Text
         property :description , Text
         property :frequency , String
-      end
+end
+      
+class SavedUser
+      include DataMapper::Resource
+      property :id , Serial
+      property :user , String
+      property :password , String
+end
+      
 DataMapper.finalize.auto_upgrade!
 
+
+
+use Rack::Session::Cookie
+
+use Warden::Manager do |manager|
+  manager.default_strategies :password
+  #manager.failure_app = MySinatraApp
+  manager.serialize_into_session {|user| user.id}
+  manager.serialize_from_session {|id| SavedUser.first(:id => id)}
+end
+
+Warden::Strategies.add(:password) do
+  def valid?
+    params["email"] || params["password"]
+  end
+ 
+  def authenticate!
+        user = SavedUser.first(:user => params["email"])
+        if user && user.password == params["password"]
+          success!(user)
+        else
+          fail!("Could not log in")
+        end
+      end
+end
+
+Warden::Manager.before_failure do |env,opts|
+    env['REQUEST_METHOD'] = 'POST'
+  end
+  
+def warden_handler
+    env['warden']
+end
+
+def current_user
+    warden_handler.user
+end
+
+def check_authentication
+    redirect '/login' unless warden_handler.authenticated?
+end
+  
 get '/' do
   @all_files = CachedFile.all
-  
   erb :index
 end
 
-post '/' do
+post '/admin/cache' do
   
   boom = CachedFile.first(:name => params[:seriesNumber])
   boom.destroy unless boom.nil?
@@ -53,10 +108,21 @@ post '/' do
   
   @all_files = CachedFile.all
 
-  erb :index
+  erb :admin
+end
+
+get '/admin' do
+  check_authentication
+
+  @all_files = CachedFile.all
+
+  erb :admin
 end
 
 get '/graphview/:name' do  
+  
+  @all_files = CachedFile.all
+  
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
   
@@ -72,16 +138,43 @@ get '/graphview/:name' do
   erb :graphview
 end
 
+get '/admin/graphview/:name' do  
+  
+  check_authentication
+  
+  @all_files = CachedFile.all
+  
+  @name = params[:name]
+  rFile = CachedFile.first(:name => "#{@name}")
+  
+  @cached_json =  JSON.parse(rFile.jsonFile)
+  
+  @array = []
+       @arrayDate = []
+       @cached_json["data"].each do |date, data|
+         @array.push(data)
+         @arrayDate.push(date)
+       end
+  
+  erb :adminGraph
+end
+
 post '/clear' do
+  
+  check_authentication
+  
   CachedFile.all.destroy
-  redirect "/"
+  redirect "/admin"
 end
 
 get '/delete/:name' do
+  
+  check_authentication
+  
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
   rFile.destroy
-  redirect "/"
+  redirect "/admin"
   
 end
 
@@ -115,3 +208,36 @@ get '/embed/:name/chart' do
 
   erb :chartsolo
 end
+
+get '/login' do
+  
+  erb :login
+end
+
+post '/session' do 
+  warden_handler.authenticate!
+  if warden_handler.authenticated?
+    redirect "/admin" 
+  else
+    redirect "/login"
+  end
+  
+end
+
+post '/unauthenticated' do
+  
+  redirect '/'
+  
+end
+
+get '/logout' do
+    warden_handler.logout
+    redirect '/'
+end
+
+# post '/login' do
+#   if params[:usernameInput]
+#   
+#   redirect "/"
+#   
+# end

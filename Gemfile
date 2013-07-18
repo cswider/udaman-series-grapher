@@ -5,10 +5,10 @@ gem 'dm-core', '1.2.1'
 gem 'dm-do-adapter', '1.2.0'
 gem 'dm-migrations', '1.2.0'
 gem 'dm-pagination', '0.4.0'
-gem 'dm-sqlite-adapter', '1.2.0'
+gem 'dm-postgres-adapter', '1.2.0'
 gem 'dm-timestamps', '1.2.0'
 gem 'dm-validations', '1.2.0'
-gem 'do_sqlite3', '0.10.13'
+gem 'warden', '1.2.3'
 
 gem 'mechanize', '2.7.1'
 

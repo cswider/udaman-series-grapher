@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html>
+	
+	<div id="wrap">
+	
+	<head>
+		
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
+	
+	<!-- Imports! -->
+	<link rel="stylesheet" href="/bootstrap/bootstrap-responsive.css">
+	<link rel="stylesheet" href="/bootstrap/bootstrap.css">
+	<script language="javascript" src="/bootstrap/bootstrap.js"></script>
+	<script language="javascript" src="/jquery.js"></script>
+	<title>Udaman Series Grapher</title>
+	
+	</head>
+
+	<body>
+		
+		<div class="navbar navbar-inverse navbar-fixed-top" align="left">
+	      <div class="navbar-inner">
+	        <div class="container">
+	          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="brand" href="#">Udaman Series Grapher</a>
+	          <div class="nav-collapse collapse">
+	            <ul class="nav pull-right">
+	              <li class="active"><a href="#">Home</a></li>
+				  <li><a href="/login">Login</a></li>
+				  <li><a href="/logout">Logout</a></li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+		</div>
+		
+		<div class="container" id="spacer">
+			<div class="row">
+				<div class="span12">
+					<p>
+						<br>
+						<br>
+						<br>
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row-fluid">
+			<div class="span4 ">
+				<div class="row-fluid">
+					<div class="span12 well container-narrow">
+						<h3>Input Series # Here</h3>
+						<div class="span12 container-narrow">
+							<form method = "post" action = '/'>
+								<input type="text" name="seriesNumber" />
+								<input type = "submit" value = "Cache" class="btn"/>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span8">
+				<div class="row-fluid">
+					<div class="span12 well container-narrow">
+						<div class="row-fluid">
+							<div class="span6">
+								<h3>Cached Series</h3>
+							</div>
+							<div class="span6">
+								<div align="right">
+									<form method = "post" action = "clear">
+										<input type = "submit" value = "Clear All" class = "btn"/>
+									</form>
+								</div>
+							</div>
+						</div>
+						<ul name="seriesList">
+							<% if !@all_files.nil? %>
+							<%@all_files.each do |a| %>
+							<li><%=a.description%>&nbsp;&nbsp;Frequency: <%=a.frequency.capitalize	%>&nbsp;<a href="graphview/<%=a.name%>" rel="alternate">Chart</a> | <a href="/json/<%=a.name%>">JSON Format</a> | <a href="/delete/<%=a.name%>">Delete</a></li>
+							<%end%>
+							<%end%>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<style type="text/css">
+
+		         /* Sticky footer styles
+		         -------------------------------------------------- */
+
+		         html,
+		         body {
+		           height: 100%;
+		           /* The html and body elements cannot have any padding or margin. */
+		         }
+
+		         /* Wrapper for page content to push down footer */
+		         #wrap {
+		           min-height: 100%;
+		           height: auto !important;
+		           height: 100%;
+		           /* Negative indent footer by it's height */
+		           margin: 0 auto -60px;
+		         }
+
+		         /* Set the fixed height of the footer here */
+		         #push,
+		         #footer {
+		           height: 60px;
+		         }
+		         #footer {
+		           background-color: #f5f5f5;
+		         }
+
+		         /* Lastly, apply responsive CSS fixes as necessary */
+		         @media (max-width: 767px) {
+		           #footer {
+		             margin-left: -20px;
+		             margin-right: -20px;
+		             padding-left: 20px;
+		             padding-right: 20px;
+		           }
+		         }
+		
+				 .container .credit {
+				           margin: 20px 0;
+				         }
+
+		       </style>
+		</body>
+		
+		</div>
+		
+	<div id="footer">
+		<div class="container">
+	    	<center><p class="muted credit">This page was created by Connor Douglas and Derek Renusch for the UHERO Network</p></center>
+		</div>
+	</div>
+		
+		
+</html>

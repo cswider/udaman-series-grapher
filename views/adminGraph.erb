@@ -9,14 +9,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1.0">
 	
-	<!-- Imports! -->
+	<!-- IMPORTS -->
 	<link rel="stylesheet" href="/bootstrap/bootstrap-responsive.css">
 	<link rel="stylesheet" href="/bootstrap/bootstrap.css">
 	<script language="javascript" src="/bootstrap/bootstrap.js"></script>
 	<script language="javascript" src="/jquery.js"></script>
-	<script src="../d3.v3.min.js"></script>
-	<script src="../d3.layout.js"></script>
-	<script src="../rickshaw.min.js"></script>
+	<title>Udaman Series Grapher</title>
+	<script src="../../d3.v3.min.js"></script>
+	<script src="../../d3.layout.js"></script>
+	<script src="../../rickshaw.min.js"></script>
 	
 	<style>
 					#chart_container {
@@ -379,12 +380,11 @@
 
 					</style>
 	
-	<title>Udaman Series Grapher</title>
-	
 	</head>
 
 	<body>
 		
+		<!-- NAVBAR -->
 		<div class="navbar navbar-inverse navbar-fixed-top" align="left">
 	      <div class="navbar-inner">
 	        <div class="container">
@@ -393,17 +393,19 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button>
-	          <a class="brand" href="#">Udaman Series Grapher</a>
+	          <a class="brand" href="/">Udaman Series Grapher</a>
 	          <div class="nav-collapse collapse">
 	            <ul class="nav pull-right">
-	              <li class="active"><a href="#">Home</a></li>
-				  <li><a href="/admin">Edit</a></li>
+	              <li><a href="/">Home</a></li>
+	 			  <li class="active"><a href="/admin">Edit</a></li>
+				  <li><a href="/logout">Logout</a></li>
 	            </ul>
 	          </div>
 	        </div>
 	      </div>
 		</div>
 		
+		<!-- SPACER -->
 		<div class="container" id="spacer">
 			<div class="row">
 				<div class="span12">
@@ -420,20 +422,44 @@
 			<div class="span5">
 				<div class="row-fluid">
 					<div class="span12 well container-narrow">
-						<h3>Cached Series</h3>
-						<ul name="seriesList">
-							<% if !@all_files.nil? %>
-							<%@all_files.each do |a| %>
-							<li><%=a.description%>&nbsp;<br>Frequency: <%=a.frequency.capitalize	%>&nbsp;<a href="graphview/<%=a.name%>" rel="alternate">Chart</a> | <a href="/json/<%=a.name%>">JSON Format</a></li>
-							<%end%>
-							<%end%>
-						</ul>
+						<h3>Cache a Series</h3>
+						<div class="span12 container-narrow">
+							<form method="post" action='/admin/cache'>
+								<input type="text" name="seriesNumber"/>
+								<input type="submit" value="Cache" class="btn"/>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12 well container-narrow">
+						<div class="row-fluid">
+							<div class="span6">
+								<h3>Cached Series</h3>
+							</div>
+							<div class="span6">
+								<div align="right">
+									<form method = "post" action = "/clear">
+										<input type = "submit" value = "Clear All" class = "btn"/>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<ul name="seriesList">
+								<% if !@all_files.nil? %>
+								<%@all_files.each do |a| %>
+								<li><%=a.description%>&nbsp;&nbsp;<br>Frequency: <%=a.frequency.capitalize	%>&nbsp;<a href="/admin/graphview/<%=a.name%>" rel="alternate">Chart</a> | <a href="/json/<%=a.name%>">JSON Format</a> | <a href="/delete/<%=a.name%>">Delete</a></li>
+								<%end%>
+								<%end%>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="span7">
 				<div class="row-fluid">
-					<div class="span12 well">
+					<div class="span12 well container-narrow">
 						<div id="chart_container">
 						        <div id="y_axis"></div>
 						        <div id="chart"></div>
@@ -453,7 +479,13 @@
 						        renderer: 'line',
 						        series: [{
 									name: 'Data',
-									data: [{ x: 0, y: 0 },],
+									data: [
+									<%@a = 0%>
+									<%@array.each do |data|%>
+									<%= "{ x: #{@a}, y: #{data} },"%>
+									<%@a += 1%>
+									<%end%>
+								],
 								color: "blue",
 							}]
 						} );
@@ -464,14 +496,16 @@
 						    legend: legend
 						});
 						*/
+					
+
 						var xTemp;
 
 						var xarray = new Array();
 
 
-						
-						xarray.push("0");
-						
+						<%@arrayDate.each do |data|%>
+						xarray.push("<%=data%>");
+						<%end%>
 
 
 						var hoverDetail = new Rickshaw.Graph.HoverDetail( {
@@ -495,12 +529,10 @@
 
 						</script>
 					</div>
-					<h3>JSON Source</h3>
 				</div>
 				<div class="row-fluid">
-					<div class="container">
-						<p><%=@cached_json%></p>
-					</div>
+					<h3>JSON Source</h3>
+					<p><%=@cached_json%></p>
 				</div>
 			</div>
 		</div>
@@ -549,7 +581,18 @@
 				         }
 
 		       </style>
+		
+		<div class="container">
+			<p>
+				<br>
+				<br>
+				<br>
+			</p>
+		</div>
+		
 		</body>
+		
+		
 		
 		</div>
 		
