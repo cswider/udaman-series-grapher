@@ -49,6 +49,7 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     ntlm-http (0.1.1)
+    pg (0.15.1)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -79,5 +80,6 @@ DEPENDENCIES
   dm-validations (= 1.2.0)
   mechanize (= 2.7.1)
   nokogiri (= 1.6.0)
+  pg
   sinatra (= 1.4.3)
   warden (= 1.2.3)

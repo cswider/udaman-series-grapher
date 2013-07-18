@@ -3,6 +3,7 @@ require 'sinatra'
 require 'net/http'
 require 'json'
 require 'uri'
+require 'pg'
  
 require 'dm-core'
 require 'dm-timestamps'
@@ -13,7 +14,7 @@ require 'dm-migrations'
 
 require 'warden'
 
-DataMapper.setup(:default, "postgres://intern:ud@m@n@localhost/database")
+DataMapper.setup(:default, ENV['DATABASE_URL'] ||  "postgres://esoihoycwhxzma:SMmGZV-7ZLpokE8pncJa7-aud1@ec2-54-225-68-241.compute-1.amazonaws.com/d62n1cs47o6lpt")
 
 #DataMapper.setup :default, "sqlite://#{Dir.pwd}/database.db"
 
@@ -41,7 +42,6 @@ use Rack::Session::Cookie
 
 use Warden::Manager do |manager|
   manager.default_strategies :password
-  #manager.failure_app = MySinatraApp
   manager.serialize_into_session {|user| user.id}
   manager.serialize_from_session {|id| SavedUser.first(:id => id)}
 end
@@ -84,7 +84,7 @@ end
 
 post '/admin/cache' do
   
-  boom = CachedFile.first(:name => params[:seriesNumber])
+  boom = CachedFile.all(:name => params[:seriesNumber])
   boom.destroy unless boom.nil?
   
   DataMapper.auto_upgrade! 
@@ -234,10 +234,3 @@ get '/logout' do
     warden_handler.logout
     redirect '/'
 end
-
-# post '/login' do
-#   if params[:usernameInput]
-#   
-#   redirect "/"
-#   
-# end

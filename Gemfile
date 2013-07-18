@@ -15,3 +15,6 @@ gem 'mechanize', '2.7.1'
 gem 'nokogiri', '1.6.0'
 
 gem 'sinatra', '1.4.3'
+gem 'pg'
+
+ruby '1.9.2'
