@@ -14,6 +14,16 @@ require 'dm-migrations'
 
 require 'warden'
 
+
+class MyApp < Sinatra::Base
+  configure :production, :development do
+    enable :logging
+  end
+  post '/unauthenticated' do
+    redirect '/login'
+  end
+end
+
 DataMapper.setup(:default, ENV['DATABASE_URL'] ||  "postgres://esoihoycwhxzma:SMmGZV-7ZLpokE8pncJa7-aud1@ec2-54-225-68-241.compute-1.amazonaws.com/d62n1cs47o6lpt")
 
 #DataMapper.setup :default, "sqlite://#{Dir.pwd}/database.db"
@@ -42,6 +52,7 @@ use Rack::Session::Cookie
 
 use Warden::Manager do |manager|
   manager.default_strategies :password
+  manager.failure_app = MyApp
   manager.serialize_into_session {|user| user.id}
   manager.serialize_from_session {|id| SavedUser.first(:id => id)}
 end
