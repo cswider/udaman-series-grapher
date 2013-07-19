@@ -418,6 +418,7 @@
 			</div>
 		</div>
 		
+		
 		<div class="row-fluid">
 			<div class="span5">
 				<div class="row-fluid">
@@ -426,9 +427,35 @@
 						<div class="span12 container-narrow">
 							<form method="post" action='/admin/cache'>
 								<input type="text" name="seriesNumber"/>
+								<br>
 								<input type="submit" value="Cache" class="btn"/>
 							</form>
 						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12 well container-narrow">
+						<div class="row-fluid">
+							<div class="span6">
+								<h3>Series Requests</h3>
+								<p>Requested series.</p>
+							</div>
+							<div class="span6">
+								<div align="right">
+									<form method="post" action="/clearrequests">
+										<input type="submit" value="Clear All" class="btn">
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<ul name="requestList">
+								<%if !@all_requests.nil?%>
+								<%@all_requests.each do |a|%>
+								<li><%=a.series%>&nbsp;&nbsp;<a href="/admin/cacherequest/<%=a.series%>">Cache It</a> | <a href="/deleterequest/<%=a.series%>">Delete</a></li>
+								<%end%>
+								<%end%>
+							</ul>
 					</div>
 				</div>
 				<div class="row-fluid">
@@ -456,6 +483,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 			<div class="span7">
 				<div class="row-fluid">

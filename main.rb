@@ -43,6 +43,12 @@ class SavedUser
       property :user , String
       property :password , String
 end
+
+class RequestSeries
+      include DataMapper::Resource
+      property :id , Serial
+      property :series , Integer
+end
       
 DataMapper.finalize.auto_upgrade!
 
@@ -88,12 +94,22 @@ def check_authentication
     redirect '/login' unless warden_handler.authenticated?
 end
   
+def up?(server, port, extension)
+  http = Net::HTTP.start(server, port, {open_timeout: 5, read_timeout: 5})
+  response = http.head("/#{extension}")
+  response.code == "200"
+rescue Timeout::Error, SocketError
+  false
+end
+  
 get '/' do
   @all_files = CachedFile.all
   erb :index
 end
 
 post '/admin/cache' do
+  
+  check_authentication
   
   boom = CachedFile.all(:name => params[:seriesNumber])
   boom.destroy unless boom.nil?
@@ -118,14 +134,65 @@ post '/admin/cache' do
     file.save
   
   @all_files = CachedFile.all
+  @all_requests = RequestSeries.all
 
   erb :admin
+end
+
+get '/admin/cacherequest/:series' do
+  
+  check_authentication
+  
+      boom = RequestSeries.all(:series => params[:series])
+      boom.destroy unless boom.nil?
+  
+      boom2 = CachedFile.all(:name => params[:series])
+      boom2.destroy unless boom.nil?
+  
+      DataMapper.auto_upgrade!
+      require 'mechanize'
+
+      agent = Mechanize.new
+  
+      page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
+  
+      dashboard = page.form_with(:action => '/users/sign_in') do |f|
+        f.send("user[email]=", 'cdouglas14@punahou.edu')
+        f.send("user[password]=", 'ud@m@n')
+      end.click_button
+  
+      @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:series]}.json").body
+      @json_data = JSON.parse(@json_string)
+      @desc = @json_data["description"]
+      @freq = @json_data["frequency"]
+  
+      file = CachedFile.new name: params[:series], jsonFile: @json_string, description: @desc, frequency: @freq
+      file.save
+  
+      @all_files = CachedFile.all
+      @all_requests = RequestSeries.all
+
+      redirect '/admin'
+  
+   
+end
+
+get '/deleterequest/:series' do
+  
+  check_authentication
+  
+  @series = params[:series]
+  request = RequestSeries.first(:series => "#{@series}")
+  request.destroy
+  redirect "/admin"
+  
 end
 
 get '/admin' do
   check_authentication
 
   @all_files = CachedFile.all
+  @all_requests = RequestSeries.all
 
   erb :admin
 end
@@ -154,6 +221,7 @@ get '/admin/graphview/:name' do
   check_authentication
   
   @all_files = CachedFile.all
+  @all_requests = RequestSeries.all
   
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
@@ -170,11 +238,29 @@ get '/admin/graphview/:name' do
   erb :adminGraph
 end
 
+post '/request' do
+  
+  request = RequestSeries.new series: params[:seriesRequest]
+  request.save
+  
+  #@response = "Request Sent!"
+  redirect '/'
+  
+end
+
 post '/clear' do
   
   check_authentication
   
   CachedFile.all.destroy
+  redirect "/admin"
+end
+
+post '/clearrequests' do
+  
+  check_authentication
+  
+  RequestSeries.all.destroy
   redirect "/admin"
 end
 
