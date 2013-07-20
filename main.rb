@@ -94,6 +94,7 @@ def check_authentication
     redirect '/login' unless warden_handler.authenticated?
 end
   
+# Working on this to have the app not crash when an incorrect series number is entered  
 def up?(server, port, extension)
   http = Net::HTTP.start(server, port, {open_timeout: 5, read_timeout: 5})
   response = http.head("/#{extension}")
