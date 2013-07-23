@@ -288,8 +288,8 @@ get '/json/:name' do
   
   puts rFile.jsonFile
   
-  @cached_json =  JSON.parse(rFile.jsonFile)
-  #@cached_json = rFile.jsonFile
+  #@cached_json =  JSON.parse(rFile.jsonFile)
+  @cached_json = rFile.jsonFile
   
   puts @cached_json
   
