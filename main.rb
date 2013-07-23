@@ -108,6 +108,12 @@ get '/' do
   erb :index
 end
 
+get '/load' do
+  
+  erb :loadJSON
+  
+end
+
 post '/admin/cache' do
   
   check_authentication
@@ -280,7 +286,12 @@ get '/json/:name' do
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
   
-  @cached_json =  JSON.parse(rFile.jsonFile)
+  puts rFile.jsonFile
+  
+  #@cached_json =  JSON.parse(rFile.jsonFile)
+  @cached_json = rFile.jsonFile
+  
+  puts @cached_json
   
   erb :json
 end
