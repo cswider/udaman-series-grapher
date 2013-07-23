@@ -292,8 +292,8 @@ get '/json/:name' do
   @cached_json = rFile.jsonFile
   
   puts @cached_json
-  
-  erb :json
+  render file: @cached_json, content_type: "application/json"
+  #erb :json
 end
 
 get '/embed/:name' do
