@@ -288,7 +288,7 @@ end
 
 get '/json/:name' do
   
-  content_type 'application/json'
+  content_type 'application/javascript'
   
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
