@@ -108,6 +108,10 @@ get '/' do
   erb :index
 end
 
+configure do
+  mime_type :json, 'application/json'
+end
+
 get '/load' do
   
   erb :loadJSON
@@ -283,6 +287,9 @@ get '/delete/:name' do
 end
 
 get '/json/:name' do
+  
+  content_type 'application/json'
+  
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
   
