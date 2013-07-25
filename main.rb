@@ -68,7 +68,7 @@ Warden::Strategies.add(:password) do
     params["email"] || params["password"]
   end
  
-  def authenticate!
+def authenticate!
         user = SavedUser.first(:user => params["email"])
         if user && user.password == params["password"]
           success!(user)
@@ -112,9 +112,21 @@ configure do
   mime_type :json, 'application/json'
 end
 
-get '/load' do
+get '/loadJSI' do
   
-  erb :loadJSON
+  erb :javascriptJsonImport
+  
+end
+
+get '/loadAI' do
+  
+  erb :ajaxJsonImport
+  
+end
+
+get '/loadRO' do
+  
+  erb :rickshawJsonImport
   
 end
 
@@ -298,9 +310,23 @@ get '/json/:name' do
   #@cached_json =  JSON.parse(rFile.jsonFile)
   @cached_json = rFile.jsonFile
   
-  puts @cached_json
   #render file: @cached_json, content_type: "application/json"
   erb :json
+end
+
+get '/jsonRO/17800' do
+  
+  content_type 'application/javascript'
+  
+  rFile = CachedFile.first(:name => "17800")
+  
+  puts rFile.jsonFile
+  
+  #@cached_json =  JSON.parse(rFile.jsonFile)
+  @cached_json = rFile.jsonFile
+  
+  #render file: @cached_json, content_type: "application/json"
+  erb :jsonRO
 end
 
 get '/embed/:name' do
