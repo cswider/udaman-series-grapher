@@ -1,5 +1,6 @@
 function refresh(series)
 {
+	clearGraph()
 	var url = 'http://uherodata.herokuapp.com/json/';
 	url += series;
 	url += '?callback=myCallback';
@@ -10,6 +11,12 @@ function refresh(series)
 		jsonp: 'callback'
 	});
 	
+}
+
+function clearGraph() {
+  $('#chart_container').html(
+    '<div id="chart"></div><div id="y_axis"></div>'
+  );
 }
 
 function myCallback(data) 
