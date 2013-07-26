@@ -59,8 +59,11 @@ function everythingElse(rdata)
 	graph.render();
 }
 
+var seriesNum = ''
+seriesNum += document.getElementById('series').text();
+
 var url = 'http://uherodata.herokuapp.com/json/';
-url += '17800';
+url += seriesNum;
 url += '?callback=myCallback';
 
 $('document').ready(function() {
