@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+	
+		<script src="../d3.v3.min.js"></script>
+		<script src="../d3.layout.js"></script>
+		<script src="../rickshaw.min.js"></script>
+		<link rel="stylesheet" href="../rickshaw.min.css"/>
+		<script language="javascript" src="/jquery.js"></script>
+	
+    </head>
+    <body>
+		<div id="chart_container">
+		        <div id="y_axis"></div>
+		        <div id="chart"></div>
+		</div>
+		<br>
+		<div id="displayData"></div>
+		<br>
+		<div id="arrayDate"></div>
+		<br>
+		<div id="arrayVal"></div>
+		
+        <script>
+
+		var seriesData;
+
+        function myCallback(data){
+    		document.getElementById('displayData').innerHTML = String(data.data["2001-10-01"]) + " | " + data["frequency"] + " | " + data["description"] ;
+			//alert(dataWeGotViaJsonp.data["2001-10-01"]);
+			seriesData = data;
+        }
+		
+		</script>
+		<script type="text/javascript" src="http://uherodata.herokuapp.com/json/17800?callback=myCallback"></script>
+		<script>
+		
+		var dates = new Array();
+		var values = new Array();
+		
+		var keys = $.map(seriesData.data, function(v, i) {
+		
+			dates.push(i);
+			values.push(v);
+			
+		});
+		
+		document.getElementById('arrayDate').innerHTML = dates;
+		document.getElementById('arrayVal').innerHTML = values;
+	
+		var datalist = new Array();
+		
+		for (var i = 0; i < values.length; i++) {
+			datalist.push({ "x": i, "y":values[i]});
+		}
+	
+		document.getElementById('arrayVal').innerHTML = values;
+	
+	
+		var palette = new Rickshaw.Color.Palette( { scheme: 'spectrum2000' } );
+	
+		var graph = new Rickshaw.Graph( {
+		        element: document.querySelector("#chart"),
+		        width: 760,
+		        height: 360,
+		        renderer: 'line',
+		        series: [{
+					name: 'Data',
+					data: datalist,
+				color: "blue",
+			}]
+		} );
+	
+	
+		/*var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+		    graph: graph,
+		    legend: legend
+		});
+		*/
+		var xTemp;
+	
+		var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+		    graph: graph,
+		    xFormatter: function(x) { xTemp = dates[x]; return "" },
+		    yFormatter: function(y) { return y + "<br>" + "Date: " + xTemp }
+		} );
+	
+		var yAxis = new Rickshaw.Graph.Axis.Y({
+		    graph: graph
+		});
+	
+	
+		var xAxis = new Rickshaw.Graph.Axis.X({
+		    graph: graph,
+			tickFormat: function(x) {return xarray[x]}
+		});
+	
+	
+		graph.render();
+			
+        </script>
+        
+    </body>
+</html>
