@@ -112,6 +112,25 @@ configure do
   mime_type :json, 'application/json'
 end
 
+get '/cachedjson' do
+  
+  files = CachedFile.all
+  
+  @jsonList = Array.new
+  
+  a = 0
+  
+  while a < files.length do
+    
+    @jsonList.push(files.at(a).name)
+    
+    a += 1
+  end
+  
+  erb :jsonList
+  
+end
+
 get '/loadJSI' do
   
   erb :javascriptJsonImport

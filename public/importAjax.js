@@ -13,6 +13,33 @@ function refresh(series)
 	
 }
 
+function getGraphList()
+{
+	
+	$.ajax({
+		url: 'http://uherodata.herokuapp.com/cachedseries',
+		dataType: 'jsonp',
+		jsonpCallback: 'graphListCallback',
+		jsonp: 'callback'
+	});
+	
+}
+
+function graphListCallback(data)
+{
+	graphListRefresh(data);
+}
+
+function graphListRefresh(data)
+{
+	var htmlString = '';
+	for (var i=0;i<data.length;i++) {
+		htmlString += '<li><a onclick="refresh(' + data[i] + ')">' + data[i] + '</a></li>';
+	}
+	
+	$('#seriesList').html(htmlString);
+}
+
 function clearGraph() {
   $('#chart_container').html(
     '<div id="chart"></div><div id="y_axis"></div>'
@@ -86,15 +113,7 @@ $('document').ready(function() {
 	var seriesNum = ''
 seriesNum += document.getElementById('series').innerText;
 
+refresh(seriesNum);
 
 
-var url = 'http://uherodata.herokuapp.com/json/';
-url += seriesNum;
-url += '?callback=myCallback';
-	$.ajax({
-	        url: url,
-	        dataType: 'jsonp',
-			jsonpCallback: 'myCallback',
-			jsonp: 'callback'
-	    });
 });
