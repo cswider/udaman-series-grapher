@@ -1,3 +1,17 @@
+function refresh(series)
+{
+	var url = 'http://uherodata.herokuapp.com/json/';
+	url += series;
+	url += '?callback=myCallback';
+	$.ajax({
+        url: url,
+		dataType: 'jsonp',
+		jsonpCallback: 'myCallback',
+		jsonp: 'callback'
+	});
+	
+}
+
 function myCallback(data) 
 {
 	everythingElse(data);
