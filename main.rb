@@ -114,6 +114,8 @@ end
 
 get '/cachedjson' do
   
+  content_type 'application/javascript'
+  
   files = CachedFile.all
   
   @jsonList = Array.new
