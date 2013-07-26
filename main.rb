@@ -331,6 +331,9 @@ end
 
 get '/embed/:name' do
   @name = params[:name]
+  
+  @seriesName = @name
+  
   erb :embed
 end 
 
