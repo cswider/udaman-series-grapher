@@ -1,6 +1,5 @@
 function myCallback(data) 
 {
-	document.getElementById('displayData').innerHTML = String(data.data["2001-10-01"]) + " | " + data["frequency"] + " | " + data["description"] ;
 	everythingElse(data);
 }
 
@@ -18,16 +17,11 @@ function everythingElse(rdata)
 		values.push(i);
 	});
 
-	document.getElementById('arrayDate').innerHTML = dates;
-	document.getElementById('arrayVal').innerHTML = values;
-
 	var datalist = new Array();
 
 	for (var i = 0; i < values.length; i++) {
 		datalist.push({ "x": i, "y":values[i]});
 	}
-
-	document.getElementById('arrayVal').innerHTML = values;
 
 	var palette = new Rickshaw.Color.Palette( { scheme: 'spectrum2000' } );
 
