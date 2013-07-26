@@ -59,14 +59,17 @@ function everythingElse(rdata)
 	graph.render();
 }
 
-var seriesNum = ''
+
+
+$('document').ready(function() {
+	var seriesNum = ''
 seriesNum += document.getElementById('series').text();
+
+
 
 var url = 'http://uherodata.herokuapp.com/json/';
 url += seriesNum;
 url += '?callback=myCallback';
-
-$('document').ready(function() {
 	$.ajax({
 	        url: url,
 	        dataType: 'jsonp',
