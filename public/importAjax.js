@@ -113,7 +113,7 @@ function everythingElse(rdata)
 
 $('document').ready(function() {
 	var seriesNum = ''
-seriesNum += document.getElementById('series').innerText;
+seriesNum += document.getElementById('series').textContent;
 
 refresh(seriesNum);
 
