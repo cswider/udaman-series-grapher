@@ -52,7 +52,7 @@ function everythingElse(rdata)
 
 	var xAxis = new Rickshaw.Graph.Axis.X({
 	    graph: graph,
-		tickFormat: function(x) {return xarray[x]}
+		tickFormat: function(x) {return dates[x]}
 	});
 
 
