@@ -8,7 +8,7 @@ function refresh(series)
         url: url,
 		dataType: 'jsonp',
 		jsonpCallback: 'myCallback',
-		jsonp: 'myCallback'
+		jsonp: 'callback'
 	});
 	
 }
