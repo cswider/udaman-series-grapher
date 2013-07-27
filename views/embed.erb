@@ -1,19 +1,6 @@
 <xmp>
-	<div style='margin:50px'>
-
-	<div class="dropdown">
-	<a class="account" >
-	<span>Series</span>
-	</a>
-
-	<div class="submenu" style="display: none; ">
-
-	  <ul onload="getGraphList()" class="root" id="seriesList">
-	  </ul>
-	</div>
-	</div>
-
-	</div>
+	<select id="seriesList" onload="getGraphList()">
+	</select>
 	<button onclick="getGraphList()">Refresh</button>
 <div id="chart_container">
 <div id="y_axis"></div>

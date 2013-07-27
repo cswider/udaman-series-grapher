@@ -34,7 +34,7 @@ function graphListRefresh(data)
 {
 	var htmlString = '';
 	for (var i=0;i<data.length;i++) {
-		htmlString += '<li><a onclick="refresh(' + data[i] + ')">' + data[i] + '</a></li>';
+		htmlString += '<option><a onclick="refresh(' + data[i] + ')">' + data[i] + '</a></option>';
 	}
 	
 	$('#seriesList').html(htmlString);
