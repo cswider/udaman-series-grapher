@@ -114,7 +114,6 @@ $('document').ready(function() {
 seriesNum += document.getElementById('series').textContent;
 
 refresh(seriesNum);
-getGraphList();
 
 
 });
