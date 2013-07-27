@@ -17,7 +17,7 @@ function getGraphList()
 {
 	
 	$.ajax({
-		url: 'http://uherodata.herokuapp.com/cachedseries?callback=graphListCallback',
+		url: 'http://uherodata.herokuapp.com/cachedjson?callback=graphListCallback',
 		dataType: 'jsonp',
 		jsonpCallback: 'graphListCallback',
 		jsonp: 'graphListCallback'
