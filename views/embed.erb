@@ -1,4 +1,20 @@
 <xmp>
+	<div style='margin:50px'>
+
+	<div class="dropdown">
+	<a class="account" >
+	<span>Series</span>
+	</a>
+
+	<div class="submenu" style="display: none; ">
+
+	  <ul onload="getGraphList()" class="root" id="seriesList">
+	  </ul>
+	</div>
+	</div>
+
+	</div>
+	<button onclick="getGraphList()">Refresh</button>
 <div id="chart_container">
 <div id="y_axis"></div>
 <div id="chart"></div>
@@ -125,20 +141,4 @@ border-top:1px solid #dedede;
 }
 
 </style>
-<div style='margin:50px'>
-
-<div class="dropdown">
-<a class="account" >
-<span>Series</span>
-</a>
-
-<div class="submenu" style="display: none; ">
-
-  <ul onload="getGraphList()" class="root" id="seriesList">
-  </ul>
-</div>
-</div>
-
-</div>
-<button onclick="getGraphList()">Refresh</button>
 </xmp>
