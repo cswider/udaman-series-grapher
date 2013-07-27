@@ -8,7 +8,7 @@ function refresh(series)
         url: url,
 		dataType: 'jsonp',
 		jsonpCallback: 'myCallback',
-		jsonp: 'callback'
+		jsonp: 'myCallback'
 	});
 	
 }
@@ -20,7 +20,7 @@ function getGraphList()
 		url: 'http://uherodata.herokuapp.com/cachedseries?callback=graphListCallback',
 		dataType: 'jsonp',
 		jsonpCallback: 'graphListCallback',
-		jsonp: 'callback'
+		jsonp: 'graphListCallback'
 	});
 	
 }
