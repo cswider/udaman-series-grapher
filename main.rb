@@ -131,7 +131,7 @@ get '/cachedjson' do
     a += 1
   end
   
-  @jsonList.to_json
+  render :json => @jsonList
   
   erb :jsonList
   
