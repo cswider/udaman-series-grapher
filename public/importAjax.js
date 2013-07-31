@@ -33,9 +33,9 @@ function graphListCallback(data)
 function graphListRefresh(data)
 {
 	var htmlString = '';
-	for (var i=0;i<data.length;i++) {
-		htmlString += '<option><a onclick="refresh(' + data[i] + ')">' + data[i] + '</a></option>';
-	}
+	$.each(data, function(v, i){
+		htmlString += '<option value="' + v + '">' + i + '</option>';
+	}) 
 	
 	$('#seriesList').html(htmlString);
 }

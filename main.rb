@@ -118,13 +118,13 @@ get '/cachedjson' do
   
   files = CachedFile.all
   
-  @jsonList = Array.new
+  @jsonList = Hash.new
   
   a = 0
   
   while a < files.length do
     
-    @jsonList.push(files.at(a).name)
+    @jsonList.store(files.at(a).name, files.at(a).description)
     
     a += 1
   end
