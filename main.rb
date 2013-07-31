@@ -124,7 +124,7 @@ get '/cachedjson' do
   
   while a < files.length do
     
-    @jsonList.store(files.at(a).name, files.at(a).description)
+    @jsonList.store(files.at(a).name: files.at(a).description)
     
     a += 1
   end
