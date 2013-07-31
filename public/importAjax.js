@@ -87,7 +87,7 @@ function everythingElse(rdata)
 	        series: [{
 				name: 'Data',
 				data: datalist,
-			color: "blue",
+			color: palette,
 		}]
 	} );
 
