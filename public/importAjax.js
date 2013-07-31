@@ -34,7 +34,7 @@ function graphListRefresh(data)
 {
 	var htmlString = '';
 	$.each(data, function(v, i){
-		htmlString += '<option value="' + v + '">' + i + '</option>';
+		htmlString += '<option value="' + i + '">' + v + '</option>';
 	}) 
 	
 	$('#seriesList').html(htmlString);
