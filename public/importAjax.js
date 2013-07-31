@@ -64,6 +64,12 @@ function everythingElse(rdata)
 		dates.push(v);
 		values.push(i);
 	});
+	
+	var desc = seriesData.description;
+
+	$('#desc').html(
+		'<h3>'+desc+'</h3>'
+	);
 
 	var datalist = new Array();
 

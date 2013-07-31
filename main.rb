@@ -248,6 +248,8 @@ get '/graphview/:name' do
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
   
+  @chartHeader = rFile.description
+  
   @cached_json =  JSON.parse(rFile.jsonFile)
   
   @array = []
@@ -269,6 +271,8 @@ get '/admin/graphview/:name' do
   
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
+  
+  @chartHeader = rFile.description
   
   @cached_json =  JSON.parse(rFile.jsonFile)
   
