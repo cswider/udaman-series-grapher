@@ -114,6 +114,8 @@ end
 
 get '/cachedjson' do
   
+  require 'json'
+  
   content_type 'application/javascript'
   
   files = CachedFile.all
