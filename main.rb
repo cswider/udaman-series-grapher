@@ -129,7 +129,7 @@ get '/cachedjson' do
     a += 1
   end
   
-  @jsonList = JSON.parse(@jsonList)
+  @jsonList.to_json
   
   erb :jsonList
   
