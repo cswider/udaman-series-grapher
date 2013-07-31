@@ -111,10 +111,4 @@ function everythingElse(rdata)
 
 $('document').ready(function() {
 getGraphList();
-
-$('#seriesList').change(function() {
-	refresh($('#seriesList').val());
-});
-
-
 });
