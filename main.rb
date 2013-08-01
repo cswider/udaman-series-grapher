@@ -120,21 +120,13 @@ get '/cachedjson' do
   
   files = CachedFile.all
   
-  #@jsonList = Hash.new
-  @jsonList = Array.new
+  @jsonList = {}
   
-  a = 0
-  
-  while a < files.length do
-    
-    #@jsonList.store(files.at(a).name, files.at(a).description)
-    @jsonList.push(files.at(a).name)
-    
-    a += 1
+  files.each do |f|
+    @jsonList.store(f.name, f.description)
   end
   
-  #render :json => @jsonList
-  
+    
   erb :jsonList
   
 end
