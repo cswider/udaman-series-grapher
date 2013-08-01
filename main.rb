@@ -12,6 +12,8 @@ require 'dm-migrations'
 
 require 'warden'
 
+require 'confidential'
+
 
 class MyApp < Sinatra::Base
   configure :production, :development do
@@ -22,7 +24,7 @@ class MyApp < Sinatra::Base
   end
 end
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] ||  "postgres://esoihoycwhxzma:SMmGZV-7ZLpokE8pncJa7-aud1@ec2-54-225-68-241.compute-1.amazonaws.com/d62n1cs47o6lpt")
+DataMapper.setup(:default, ENV['DATABASE_URL'] ||  DATABASE_INFORMATION)
 
 class CachedFile
       include DataMapper::Resource
@@ -117,8 +119,8 @@ post '/admin/cache' do
   agent = Mechanize.new 
   page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
   dashboard = page.form_with(:action => '/users/sign_in') do |f|
-    f.send("user[email]=", 'cdouglas14@punahou.edu')
-    f.send("user[password]=", 'ud@m@n')
+    f.send("user[email]=", 'USER_EMAIL')
+    f.send("user[password]=", 'USER_PASSWORD')
   end.click_button
   
   @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:seriesNumber]}.json").body
@@ -150,8 +152,8 @@ get '/admin/cacherequest/:series' do
   page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
   
   dashboard = page.form_with(:action => '/users/sign_in') do |f|
-    f.send("user[email]=", 'cdouglas14@punahou.edu')
-    f.send("user[password]=", 'ud@m@n')
+    f.send("user[email]=", 'USER_EMAIL')
+    f.send("user[password]=", 'USER_PASSWORD')
   end.click_button
   
   @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:series]}.json").body
