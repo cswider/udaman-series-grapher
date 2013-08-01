@@ -47,7 +47,7 @@ class RequestSeries
 end
       
 DataMapper.finalize.auto_upgrade!
-
+# actual text
 
 
 use Rack::Session::Cookie
