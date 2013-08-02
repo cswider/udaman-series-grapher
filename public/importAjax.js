@@ -76,7 +76,7 @@ function everythingElse(rdata)
 
 	for (var i = 0; i < values.length; i++) {
 		datalist.push({ "x": i, "y":values[i]});
-	}
+	}	
 
 	var palette = new Rickshaw.Color.Palette( { scheme: 'spectrum2000' } );
 

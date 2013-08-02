@@ -12,7 +12,7 @@ require 'dm-migrations'
 
 require 'warden'
 
-require 'confidential'
+load 'confidential.rb'
 
 
 class MyApp < Sinatra::Base
@@ -49,7 +49,6 @@ class RequestSeries
 end
       
 DataMapper.finalize.auto_upgrade!
-# actual text
 
 
 use Rack::Session::Cookie
@@ -119,8 +118,8 @@ post '/admin/cache' do
   agent = Mechanize.new 
   page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
   dashboard = page.form_with(:action => '/users/sign_in') do |f|
-    f.send("user[email]=", 'USER_EMAIL')
-    f.send("user[password]=", 'USER_PASSWORD')
+    f.send("user[email]=", USER_EMAIL)
+    f.send("user[password]=", USER_PASSWORD)
   end.click_button
   
   @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:seriesNumber]}.json").body
@@ -152,8 +151,8 @@ get '/admin/cacherequest/:series' do
   page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
   
   dashboard = page.form_with(:action => '/users/sign_in') do |f|
-    f.send("user[email]=", 'USER_EMAIL')
-    f.send("user[password]=", 'USER_PASSWORD')
+    f.send("user[email]=", USER_EMAIL)
+    f.send("user[password]=", USER_PASSWORD)
   end.click_button
   
   @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:series]}.json").body
@@ -254,7 +253,6 @@ post '/clearrequests' do
 end
 
 get '/delete/:name' do
-  
   check_authentication
   
   @name = params[:name]
@@ -271,6 +269,8 @@ get '/json/:name' do
   rFile = CachedFile.first(:name => "#{@name}")
   
   @cached_json = rFile.jsonFile
+  
+  @myCallback = 
   
   erb :json
 end

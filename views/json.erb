@@ -1,1 +1,6 @@
-myCallback(<%=@cached_json%>)
+
+<% if @myCallback.nil? %>
+	<%=@cached_json%>
+<% else %>
+	<%=@myCallback%>(<%=@cached_json%>)
+<% end %>
