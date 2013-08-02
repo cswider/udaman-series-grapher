@@ -59,7 +59,12 @@ use Warden::Manager do |manager|
   manager.serialize_into_session {|user| user.id}
   manager.serialize_from_session {|id| SavedUser.first(:id => id)}
 end
- 
+
+Warden::Strategies.add(:password) do
+  def valid?
+    params["email"] || params["password"]
+  end  
+  
 def authenticate!
         user = SavedUser.first(:user => params["email"])
         if user && user.password == params["password"]
@@ -67,7 +72,10 @@ def authenticate!
         else
           fail!("Could not log in")
         end
+    end
 end
+
+
 
 Warden::Manager.before_failure do |env,opts|
     env['REQUEST_METHOD'] = 'POST'
