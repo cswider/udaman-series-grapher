@@ -15,7 +15,7 @@ require 'warden'
 load 'confidential.rb'
 
 
-class MyApp < Sinatra::Base
+class MyApp < Sinatra::Base 
   configure :production, :development do
     enable :logging
   end
@@ -270,7 +270,7 @@ get '/json/:name' do
   
   @cached_json = rFile.jsonFile
   
-  @myCallback = 
+  @myCallback = nil
   
   erb :json
 end
