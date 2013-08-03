@@ -15,7 +15,6 @@ require 'warden'
 load 'confidential.rb'
 load 'warden_authentication.rb'
 load 'mechanize_udaman_login.rb'
-load 'data_models.rb'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] ||  DATABASE_INFORMATION)
       
