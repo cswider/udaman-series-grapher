@@ -209,8 +209,7 @@ get '/json/:name' do
   
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
-  
-  @theCallback = nil
+  @callback = nil
   @cached_json = rFile.jsonFile
   
   erb :json
@@ -223,7 +222,7 @@ get '/json/:name/:callback' do
   rFile = CachedFile.first(:name => "#{@name}")
   
   
-  @theCallback = params[:callback]
+  @callback = params[:callback]
   @cached_json = rFile.jsonFile
   
   erb :json

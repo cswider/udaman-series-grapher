@@ -1,5 +1,5 @@
-<% if @theCallback === nil%>
+<% if @callback === nil%>
 <%=@cached_json%>
 <% else %>
-<%=@theCallback%>(<%=@cached_json%>)
+<%=@callback%>(<%=@cached_json%>)
 <% end %>
