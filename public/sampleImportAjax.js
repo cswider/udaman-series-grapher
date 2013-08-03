@@ -49,10 +49,10 @@ function clearGraph() {
 
 function refreshCallback(data) 
 {
-	everythingElse(data);
+	drawGraph(data);
 }
 
-function everythingElse(rdata) 
+function drawGraph(rdata) 
 {
 
 	var seriesData;
@@ -72,9 +72,15 @@ function everythingElse(rdata)
 		'<h3>'+desc+'</h3>'
 	);
 
+	// var datalist = new Array();
+	// 
+	// for (var i = 0; i < values.length; i++) {
+	// 	datalist.push({ "x": i, "y":values[i]});
+	// }
+
 	var datalist = $.map(values, function(v, i) {
 		return { "x": i, "y":v};
-	});	
+	});
 
 	var palette = new Rickshaw.Color.Palette( { scheme: 'spectrum2000' } );
 

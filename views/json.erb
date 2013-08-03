@@ -1,1 +1,5 @@
-refreshCallback(<%=@cached_json%>)
+<% if @theCallback === nil%>
+<%=@cached_json%>
+<% else %>
+<%=@theCallback%>(<%=@cached_json%>)
+<% end %>

@@ -13,85 +13,13 @@ require 'dm-migrations'
 require 'warden'
 
 load 'confidential.rb'
-
-
-class MyApp < Sinatra::Base 
-  configure :production, :development do
-    enable :logging
-  end
-  post '/unauthenticated' do
-    redirect '/login'
-  end
-end
+load 'warden_authentication.rb'
+load 'mechanize_udaman_login.rb'
+load 'data_models.rb'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] ||  DATABASE_INFORMATION)
-
-class CachedFile
-      include DataMapper::Resource
-      property :id , Serial
-      property :name , Integer
-      property :jsonFile , Text
-      property :description , Text
-      property :frequency , String
-end
       
-class SavedUser
-      include DataMapper::Resource
-      property :id , Serial
-      property :user , String
-      property :password , String
-end
-
-class RequestSeries
-      include DataMapper::Resource
-      property :id , Serial
-      property :series , Integer
-end
-      
-DataMapper.finalize.auto_upgrade!
-
-
-use Rack::Session::Cookie
-
-use Warden::Manager do |manager|
-  manager.default_strategies :password
-  manager.failure_app = MyApp
-  manager.serialize_into_session {|user| user.id}
-  manager.serialize_from_session {|id| SavedUser.first(:id => id)}
-end
-
-Warden::Strategies.add(:password) do
-  def valid?
-    params["email"] || params["password"]
-  end  
-  
-def authenticate!
-        user = SavedUser.first(:user => params["email"])
-        if user && user.password == params["password"]
-          success!(user)
-        else
-          fail!("Could not log in")
-        end
-    end
-end
-
-
-
-Warden::Manager.before_failure do |env,opts|
-    env['REQUEST_METHOD'] = 'POST'
-  end
-  
-def warden_handler
-    env['warden']
-end
-
-def current_user
-    warden_handler.user
-end
-
-def check_authentication
-    redirect '/login' unless warden_handler.authenticated?
-end
+DataMapper.finalize.auto_upgrade
 
 get '/' do
   @all_files = CachedFile.all
@@ -123,17 +51,9 @@ post '/admin/cache' do
   
   require 'mechanize'
   
-  agent = Mechanize.new 
-  page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
-  dashboard = page.form_with(:action => '/users/sign_in') do |f|
-    f.send("user[email]=", USER_EMAIL)
-    f.send("user[password]=", USER_PASSWORD)
-  end.click_button
+  loginToUdaman
   
-  @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:seriesNumber]}.json").body
-  @json_data = JSON.parse(@json_string)
-  @desc = @json_data["description"]
-  @freq = @json_data["frequency"]
+  getJsonStringFromUdaman(params[:series])
   
   file = CachedFile.new name: params[:seriesNumber], jsonFile: @json_string, description: @desc, frequency: @freq
   file.save
@@ -155,18 +75,9 @@ get '/admin/cacherequest/:series' do
       
   require 'mechanize'
 
-  agent = Mechanize.new
-  page = agent.get("http://udaman.uhero.hawaii.edu/users/sign_in")
+  loginToUdaman
   
-  dashboard = page.form_with(:action => '/users/sign_in') do |f|
-    f.send("user[email]=", USER_EMAIL)
-    f.send("user[password]=", USER_PASSWORD)
-  end.click_button
-  
-  @json_string = agent.get("http://udaman.uhero.hawaii.edu/series/#{params[:series]}.json").body
-  @json_data = JSON.parse(@json_string)
-  @desc = @json_data["description"]
-  @freq = @json_data["frequency"]
+  getJsonStringFromUdaman(params[:series])
   
   file = CachedFile.new name: params[:series], jsonFile: @json_string, description: @desc, frequency: @freq
   file.save
@@ -261,6 +172,7 @@ post '/clearrequests' do
 end
 
 get '/delete/:name' do
+  
   check_authentication
   
   @name = params[:name]
@@ -276,9 +188,21 @@ get '/json/:name' do
   @name = params[:name]
   rFile = CachedFile.first(:name => "#{@name}")
   
+  @theCallback = nil
   @cached_json = rFile.jsonFile
   
-  @myCallback = nil
+  erb :json
+end
+
+get '/json/:name/:callback' do
+  content_type 'application/javascript'
+  
+  @name = params[:name]
+  rFile = CachedFile.first(:name => "#{@name}")
+  
+  
+  @theCallback = params[:callback]
+  @cached_json = rFile.jsonFile
   
   erb :json
 end
