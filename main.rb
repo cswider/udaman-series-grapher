@@ -16,9 +16,9 @@ load 'warden_authentication.rb'
 load 'mechanize_udaman_login.rb'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] ||  DATABASE_INFORMATION)
-      
-      
-      
+
+
+
 class CachedFile
       include DataMapper::Resource
       property :id , Serial
