@@ -28,6 +28,7 @@ def authenticate!
         else
           fail!("Could not log in")
         end
+    end
 end
 
 Warden::Manager.before_failure do |env,opts|
