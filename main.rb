@@ -12,7 +12,6 @@ require 'dm-migrations'
 
 require 'warden'
 
-load 'confidential.rb'
 load 'warden_authentication.rb'
 load 'mechanize_udaman_login.rb'
 
