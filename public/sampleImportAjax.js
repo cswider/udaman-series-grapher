@@ -3,7 +3,7 @@ function refresh(series)
 	clearGraph()
 	var url = 'http://uherodata.herokuapp.com/json/';
 	url += series;
-	url += '?callback=refreshCallback';
+	url += '/refreshCallback';
 	$.ajax({
         url: url,
 		dataType: 'jsonp',
