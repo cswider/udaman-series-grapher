@@ -64,13 +64,13 @@ get '/cachedjson' do
   erb :jsonList
 end
 
-get '/admin/addadmin' do
+get '/admin/add' do
   check_authentication
   
   erb :add_admin
 end
 
-post '/admin/addadmin' do
+post '/admin/add' do
   check_authentication
   
   erb :add_admin

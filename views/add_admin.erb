@@ -16,6 +16,32 @@
 	<link rel="stylesheet" href="/bootstrap/bootstrap.css">
 	<script language="javascript" src="/bootstrap/bootstrap.js"></script>
 	<script language="javascript" src="/jquery.js"></script>
+	<script>
+	$(document).ready(function() {
+		$(".verifyPassword").keyup(function(event){
+				var password = $('input[id=newPassword]').val();
+				var verifyPassword = $('input[id=verifyNewPassword]').val();
+				if ((password != "") && (verifyPassword != "")) {
+					if (password === verifyPassword) {
+						// The passwords do match
+						$('#password_signup').removeAttr('disabled');
+						$('#passwordVerificationUserCheck').html('Match!');
+						$('#passwordVerificationUserCheck').css('color','green');
+					} else{
+						// The passwords don't match
+						$('#passwordVerificationUserCheck').html('Sorry, those passwords don\'t match.');
+						$('#passwordVerificationUserCheck').css('color','red');
+						$('#password_signup').attr('disabled','disabled');
+					};
+				}
+				else
+				{
+					$('#passwordVerificationUserCheck').html('');
+					$('#password_signup').attr('disabled','disabled');
+				};
+			});
+	});
+	</script>
 	
 </head>
 
@@ -60,9 +86,10 @@
 						<h5>Username:</h5>
 						<input type="text" name="email"/>
 						<h5>Password:</h5>
-						<input type="password" name="password"/> <br>
+						<input type="password" id="newPassword" class="verifyPassword" name="password"/> <br>
 						<h5>Re-Enter Password:</h5>
-						<input type="password" name="password2"/>
+						<input id="verifyNewPassword" class="verifyPassword" type="password" name="verifyPassword"/>
+						<p id="passwordVerificationUserCheck">
 						<br>
 						<input type="submit" value="Login" class="btn"/>
 					</form>
