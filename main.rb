@@ -49,7 +49,7 @@ get '/' do
 end
 
 get '/dumbdumb' do
-  Hey Dumb Dumb
+  "Hey Dumb Dumb"
 end
 
 get '/cachedjson' do
