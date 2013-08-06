@@ -48,6 +48,10 @@ get '/' do
   erb :index
 end
 
+get '/dumbdumb' do
+  Hey Dumb Dumb
+end
+
 get '/cachedjson' do
   content_type 'application/javascript'
   
