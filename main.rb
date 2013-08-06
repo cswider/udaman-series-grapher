@@ -40,16 +40,13 @@ class RequestSeries
       property :id , Serial
       property :series , Integer
 end
+
 DataMapper.finalize.auto_upgrade!
 
 get '/' do
   @all_files = CachedFile.all
   
   erb :index
-end
-
-get '/dumbdumb' do
-  "Hey Dumb Dumb"
 end
 
 get '/cachedjson' do
@@ -65,6 +62,18 @@ get '/cachedjson' do
   end
     
   erb :jsonList
+end
+
+get '/admin/addadmin' do
+  check_authentication
+  
+  erb :add_admin
+end
+
+post '/admin/addadmin' do
+  check_authentication
+  
+  erb :add_admin
 end
 
 post '/admin/cache' do

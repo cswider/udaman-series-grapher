@@ -139,7 +139,7 @@
 							var hoverDetail = new Rickshaw.Graph.HoverDetail( {
 							    graph: graph,
 							    xFormatter: function(x) { xTemp = xarray[x]; return "" },
-							    yFormatter: function(y) { return Math.floor(y) + "<br>" + "Date: " + xTemp }
+							    yFormatter: function(y) { return (Math.floor(y * 10)/10) + "<br>" + "Date: " + xTemp }
 							} );
 
 							var yAxis = new Rickshaw.Graph.Axis.Y({
