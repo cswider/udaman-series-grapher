@@ -66,6 +66,7 @@ get '/admin/modify' do
   check_authentication
   
   @all_accounts = SavedUser.all
+  @all_accounts.shift
   
   erb :add_admin
 end
@@ -77,6 +78,7 @@ post '/admin/modify' do
   user.save
   
   @all_accounts = SavedUser.all
+  @all_accounts.shift
 
   erb :add_admin
 end
