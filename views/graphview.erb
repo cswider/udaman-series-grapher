@@ -98,12 +98,12 @@
 						<p>
 							<br>
 						</p>
-						<a class="btn" href = "/embed/<%=@name%>">Embed this chart</a>
 						<form class="navbar-form pull-left" method="post" action="/annotation/add">
-							<input class="span1" type="text" placeholder="Date (Ex. 2013-01-01)" name="annotated_date"/>
-							<input class="span2" type="text" placeholder="Write a message" name="annotated_message"/><br>
+							<input class="span4" type="text" placeholder="Date (Ex. 2013-01-01)" name="annotated_date"/>
+							<input class="span6" type="text" placeholder="Write a message#{<br>}" name="annotated_message"/><br>
 							<button type="submit" class="btn">Write Annotation</button>
 						</form>
+						<a class="btn" href = "/embed/<%=@name%>">Embed this chart</a>
 						<script>
 							var graph = new Rickshaw.Graph( {
 							        element: document.querySelector("#chart"),
