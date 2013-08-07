@@ -139,7 +139,7 @@
 						</div>
 						<div class="row-fluid">
 							<h5>Add an Annotation:</h5>
-							<form class="navbar-form" method="post" action="/annotation/add">
+							<form class="navbar-form" method="post" action="/annotation/add/<%=@name%>">
 								<input class="span3" type="text" placeholder="Date (Ex. 2013-01-01)" name="annotated_date"/>
 								<input class="span4" type="text" placeholder="Write a message" name="annotated_message"/>
 								<button type="submit" class="btn">Write Annotation</button>
@@ -188,8 +188,12 @@
 							    graph: graph,
 							    element: document.getElementById('timeline')
 							});
-
-							//annotator.add(15, "Test Annotation");
+							
+							<% if !@annotations.nil? %>
+							<% @annotations.each do |a| %>
+							annotator.add(a.date, a.message);
+							<% end %>
+							<% end %>
 
 							var yAxis = new Rickshaw.Graph.Axis.Y({
 							    graph: graph

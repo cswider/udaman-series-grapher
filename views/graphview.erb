@@ -143,8 +143,12 @@
 							    element: document.getElementById('timeline')
 							});
 
-							//annotator.add(15, "Test Annotation");
-
+							<% if !@annotations.nil? %>
+							<% @annotations.each do |a| %>
+							annotator.add(a.date, a.message);
+							<% end %>
+							<% end %>
+							
 							var yAxis = new Rickshaw.Graph.Axis.Y({
 							    graph: graph
 							});

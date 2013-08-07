@@ -39,6 +39,14 @@ class RequestSeries
       property :series , Integer
 end
 
+class Annotation
+      include DataMapper::Resource
+      property :id , Serial
+      property :series , Integer
+      property :date , Integer
+      property :message , Text
+end
+
 DataMapper.finalize.auto_upgrade!
 
 get '/' do
@@ -62,10 +70,27 @@ get '/cachedjson' do
   erb :jsonList
 end
 
-post '/annotation/add' do
+post '/annotation/add/:series' do
   check_authentication
   
-  erb :adminGraph
+  @series = params[:series]
+  @date = params[:annotaion_date]
+  @message = params[:annotaion_message]
+  arrayDate = []
+  
+  tFile = CachedFile.first(:name +> "#{@series}")
+  cached_json = JSON.parse(rFile.jsonFile)
+  cached_json["data"].each do |date, data|
+    arrayDate.push(date)
+  end
+  
+  date_hash = Hash[arrayDate.map.with_index.to_a]
+  @date_num = date_hash[@date]
+  
+  sFile = Annotation.new series: @series, date: @date_num, message: @message
+  sFile.save
+  
+  redirect "/admin/graphview/#{@series}"
 end
 
 get '/admin/modify' do
@@ -180,6 +205,8 @@ get '/graphview/:name' do
     @arrayDate.push(date)
   end
   
+  @annotations = Annotation.all(:series => "#{@name}")
+  
   erb :graphview
 end
 
@@ -200,6 +227,8 @@ get '/admin/graphview/:name' do
     @array.push(data)
     @arrayDate.push(date)
   end
+  
+  @annotations = Annotation.all(:series => "#{@name}")
   
   erb :adminGraph
 end
