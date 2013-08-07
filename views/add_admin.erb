@@ -27,12 +27,12 @@
 					if (password === verifyPassword) {
 						// The passwords do match
 						$('#passwordVerificationUserCheck').html('Match!');
-						$('#passwordVerificationUserCheck').css('color','green');
+						document.getElementById("passwordVerificationUserCheck").className = "label label-success";
 						passMatch = true;
 					} else{
 						// The passwords don't match
 						$('#passwordVerificationUserCheck').html('Sorry, those passwords don\'t match.');
-						$('#passwordVerificationUserCheck').css('color','red');
+						document.getElementById("passwordVerificationUserCheck").className = "label label-danger"
 						$('#submitButton').hide();
 						passMatch = false;
 					};
@@ -104,7 +104,7 @@
 						<h5>Password:</h5>
 						<input type="password" id="newPassword" class="verifyPassword" name="password"/> <br>
 						<h5>Re-Enter Password:</h5>
-						<input id="verifyNewPassword" class="verifyPassword" type="password" name="verifyPassword"/>&nbsp;&nbsp;<span id="passwordVerificationUserCheck"></span><br>
+						<input id="verifyNewPassword" class="verifyPassword" type="password" name="verifyPassword"/>&nbsp;&nbsp;<span class="label" id="passwordVerificationUserCheck"></span><br>
 						<input type="submit" value="Create Account" class="btn" id="submitButton"/>
 					</form>
 				</div>
