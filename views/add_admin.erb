@@ -93,6 +93,7 @@
 	
 	<div class="row-fluid">
 		<div class="span4 offset4 well">
+			<div class="row-fluid">
 			<div class="container">
 				<div class="row-fluid">
 					<h3>Add New Admin</h3>
@@ -109,6 +110,23 @@
 					</form>
 				</div>
 			</div>
+			</div>
+			<div class="row-fluid">
+				<div class="container">
+					<div class="row-fluid">
+						<h3>Accounts</h3>
+					</div>
+					<div class="row-fluid">
+						<ul name="accountList">
+							<%if !@all_accounts.nil?%>
+							<%@all_accounts.each do |a|%>
+							<li><%=a.user%>&nbsp;&nbsp;<a href="/deleteaccount/<%=a.user%>">Delete</a></li>
+							<%end%>
+							<%end%>
+						</ul>
+					</div>
+				</div>
+			</div>	
 		</div>
 	</div>
 

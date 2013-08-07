@@ -64,19 +64,31 @@ get '/cachedjson' do
   erb :jsonList
 end
 
-get '/admin/add' do
+get '/admin/modify' do
   check_authentication
   
   erb :add_admin
 end
 
-post '/admin/add' do
+post '/admin/modify' do
   check_authentication
   
   user = SavedUser.new user: params[:email], password: params[:password]
   user.save
+  
+  @all_accounts = SavedUser.all
 
   erb :add_admin
+end
+
+get '/deleteaccount/:name' do
+  check_authentication
+  
+  @user = params[:name]
+  c_user = SavedUser.first(:user => "#{@user}")
+  c_user.destroy
+  
+  redirect "/admin/modify"
 end
 
 post '/admin/cache' do
