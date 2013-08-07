@@ -73,7 +73,7 @@ end
 post '/admin/add' do
   check_authentication
   
-  user = SavedUser.new :user params[:email], :password params[:password]
+  user = SavedUser.new user: params[:email], password: params[:password]
   user.save
 
   erb :add_admin
