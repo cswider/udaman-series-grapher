@@ -99,9 +99,12 @@
 							<br>
 						</p>
 						<a class="btn" href = "/embed/<%=@name%>">Embed this chart</a>
+						<form class="navbar-form pull-left" method="post" action="/annotation/add">
+							<input class="span1" type="text" placeholder="Date (Ex. 2013-01-01)" name="annotated_date"/>
+							<input class="span2" type="text" placeholder="Write a message" name="annotated_message"/><br>
+							<button type="submit" class="btn">Write Annotation</button>
+						</form>
 						<script>
-							var palette = new Rickshaw.Color.Palette( { scheme: 'spectrum2000' } );
-
 							var graph = new Rickshaw.Graph( {
 							        element: document.querySelector("#chart"),
 							        width: 760,
@@ -119,13 +122,6 @@
 									color: "lightblue",
 								}]
 							} );
-
-
-							/*var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
-							    graph: graph,
-							    legend: legend
-							});
-							*/
 
 							var xTemp;
 
@@ -148,7 +144,7 @@
 							    element: document.getElementById('timeline')
 							});
 
-							annotator.add(15, "Test Annotation");
+							//annotator.add(15, "Test Annotation");
 
 							var yAxis = new Rickshaw.Graph.Axis.Y({
 							    graph: graph

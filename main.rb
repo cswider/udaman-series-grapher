@@ -23,6 +23,7 @@ class CachedFile
       property :name , Integer
       property :jsonFile , Text
       property :description , Text
+      property :annotaion , Hash
       property :frequency , String
 end
       
