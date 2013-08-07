@@ -89,22 +89,28 @@
 			<div class="span7">
 				<div class="row-fluid">
 					<div class="span12 well">
-						<h3><%=@chartHeader%></h3>
-						<div id="chart_container">
+						<div class="row-fluid">
+							<h3><%=@chartHeader%></h3>
+							<div id="chart_container">
 						        <div id="y_axis"></div>
 						        <div id="chart"></div>
 								<div id="timeline"></div>
+							</div>
 						</div>
 						<p>
 							<br>
 						</p>
-						<form class="navbar-form pull-left" method="post" action="/annotation/add">
-							<input class="span7" type="text" placeholder="Date (Ex. 2013-01-01)" name="annotated_date"/>
-							<input class="span10" type="text" placeholder="Write a message" name="annotated_message"/><br>
-							<button type="submit" class="btn">Write Annotation</button>
-						</form>
+						<div class="row-fluid">
+							<form class="navbar-form pull-left" method="post" action="/annotation/add">
+								<input class="span7" type="text" placeholder="Date (Ex. 2013-01-01)" name="annotated_date"/>
+								<input class="span10" type="text" placeholder="Write a message" name="annotated_message"/><br>
+								<button type="submit" class="btn">Write Annotation</button>
+							</form>
+						</div>
 						<br>
-						<a class="btn" href = "/embed/<%=@name%>">Embed this chart</a>
+						<div class="row-fluid">
+							<a class="btn" href = "/embed/<%=@name%>">Embed this chart</a>
+						</div>
 						<script>
 							var graph = new Rickshaw.Graph( {
 							        element: document.querySelector("#chart"),
