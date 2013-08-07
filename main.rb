@@ -67,6 +67,11 @@ end
 get '/admin/modify' do
   check_authentication
   
+  user = SavedUser.new user: params[:email], password: params[:password]
+  user.save
+  
+  @all_accounts = SavedUser.all
+  
   erb :add_admin
 end
 
