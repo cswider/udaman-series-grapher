@@ -120,7 +120,7 @@
 						<ul name="accountList">
 							<%if !@all_accounts.nil?%>
 							<%@all_accounts.each do |a|%>
-							<li><%=a.user%>&nbsp;&nbsp;<%=a.id%>&nbsp;&nbsp;s<a href="/deleteaccount/<%=a.user%>">Delete</a></li>
+							<li><%=a.user%>&nbsp;&nbsp;<%=a.id%>&nbsp;&nbsp;<a href="/deleteaccount/<%=a.id%>">Delete</a></li>
 							<%end%>
 							<%end%>
 						</ul>

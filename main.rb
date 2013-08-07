@@ -65,9 +65,6 @@ end
 get '/admin/modify' do
   check_authentication
   
-  user = SavedUser.new user: params[:email], password: params[:password]
-  user.save
-  
   @all_accounts = SavedUser.all
   
   erb :add_admin
@@ -88,7 +85,7 @@ get '/deleteaccount/:name' do
   check_authentication
   
   @user = params[:name]
-  c_user = SavedUser.first(:user => "#{@user}")
+  c_user = SavedUser.first(:id => "#{@user}")
   c_user.destroy
   
   redirect "/admin/modify"
