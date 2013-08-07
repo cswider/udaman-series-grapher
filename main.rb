@@ -62,6 +62,12 @@ get '/cachedjson' do
   erb :jsonList
 end
 
+post '/annotation/add' do
+  check_authentication
+  
+  erb :adminGraph
+end
+
 get '/admin/modify' do
   check_authentication
   
