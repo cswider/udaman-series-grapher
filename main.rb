@@ -73,12 +73,10 @@ end
 post '/admin/add' do
   check_authentication
   
-  "It worked"
-  
-  # params[:email]
-  # params[:password]
-  
-  #erb :add_admin
+  user = SavedUser.new :user params[:email], :password params[:password]
+  user.save
+
+  erb :add_admin
 end
 
 post '/admin/cache' do
