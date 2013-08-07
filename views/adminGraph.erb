@@ -191,6 +191,7 @@
 							
 							<% if !@annotations.nil? %>
 							<% @annotations.each do |a| %>
+							alert(a.date);
 							annotator.add(a.date, a.message);
 							<% end %>
 							<% end %>
