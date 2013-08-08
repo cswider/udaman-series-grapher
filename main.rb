@@ -52,10 +52,6 @@ DataMapper.finalize.auto_upgrade!
 get '/' do
   @all_files = CachedFile.all
   
-  boom = Annotation.all
-  boom.destroy
-  DataMapper.auto_upgrade!
-  
   erb :index
 end
 
