@@ -44,7 +44,7 @@ class Annotation
       property :id , Serial
       property :series , Integer
       property :date , Integer
-      property :message , Text
+      property :message , Text :lazy => false
 end
 
 DataMapper.finalize.auto_upgrade!
