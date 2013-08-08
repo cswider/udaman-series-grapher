@@ -90,6 +90,8 @@ post '/annotation/add/:series' do
   sFile = Annotation.new series: @series, date: @date_num, message: @message
   sFile.save
   
+  puts sFile.date
+  
   redirect "/admin/graphview/#{@series}"
 end
 
