@@ -74,8 +74,8 @@ post '/annotation/add/:series' do
   check_authentication
   
   @series = params[:series]
-  date = params[:annotation_date]
-  @message = params[:annotation_message]
+  date = params[:annotated_date]
+  @message = params[:annotated_message]
   arrayDate = []
   throwaway = ""
   
