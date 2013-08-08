@@ -77,7 +77,7 @@ post '/annotation/add/:series' do
   date = params[:annotation_date]
   @message = params[:annotation_message]
   arrayDate = []
-  throwaway
+  throwaway = ""
   
   tFile = CachedFile.first(:name => "#{@series}")
   cached_json = JSON.parse(tFile.jsonFile)
