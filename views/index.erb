@@ -100,9 +100,9 @@
 						<script>
 						
 						var seriesData = [ [], [], [], [], [], [], [], [], [] ];
-						var random = new Rickshaw.Fixtures.RandomData(250);
+						var random = new Rickshaw.Fixtures.RandomData(150);
 
-						for (var i = 0; i < 250; i++) {
+						for (var i = 0; i < 150; i++) {
 							random.addData(seriesData);
 						}
 
@@ -113,11 +113,7 @@
 						        width: 760,
 						        height: 360,
 						        renderer: 'line',
-						        series: [// {
-						        // 									name: 'Data',
-						        // 									data: [{ x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 3 }, { x: 4, y: 5 }, { x: 5, y: 8 }, { x: 6, y: 13 }, { x: 7, y: 21 }, { x: 8, y: 34 }, { x: 9, y: 55 }, { x: 10, y: 89 }, { x: 11, y: 144 }, { x: 12, y: 233 }, { x: 13, y: 377 }, { x: 14, y: 610 }, { x: 15, y: 987 }, { x: 16, y: 1597 }, { x: 17, y: 2584 }, { x: 18, y: 4181 }, { x: 19, y: 6765 }, { x: 20, y: 10946 }, { x: 21, y: 17711 }, { x: 22, y: 28657 }, { x: 23, y: 46368 }, { x: 24, y: 75025 }, { x: 25, y: 121393 }],
-						        // 								color: "lightblue",
-						        // 										},
+						        series: [
 										{
 										name: 'RandomData',
 										data: seriesData[0],
