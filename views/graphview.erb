@@ -20,6 +20,10 @@
 	<script src="../../graphRickshaw.js"></script>
 	<link rel="stylesheet" href="../rickshaw.min.css">
     <link rel="stylesheet" href="/src/icons/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script src="http://code.shutterstock.com/rickshaw/src/js/Rickshaw.Graph.RangeSlider.js"></script>
 	
 	<title>Udaman Series Grapher</title>
 	
@@ -95,6 +99,7 @@
 						        <div id="y_axis"></div>
 						        <div id="chart"></div>
 								<div id="timeline"></div>
+								<div id="slider"></div>
 							</div>
 						</div>
 						<p>
@@ -162,6 +167,11 @@
 
 
 							graph.render();
+							
+							var slider = new Rickshaw.Graph.RangeSlider({
+							    graph: graph,
+							    element: document.querySelector('#slider')
+							});
 						</script>					
 					</div>
 					
