@@ -77,15 +77,14 @@ post '/annotation/add/:series' do
   date = params[:annotation_date]
   @message = params[:annotation_message]
   arrayDate = []
+  throwaway
   
   tFile = CachedFile.first(:name => "#{@series}")
   cached_json = JSON.parse(tFile.jsonFile)
   cached_json["data"].each do |date, data|
     arrayDate.push(date)
+    throwaway = data
   end
-  
-  # date_hash = Hash[arrayDate.map.with_index.to_a]
-  # @date_num = date_hash[date]
   
   @date_num = arrayDate.index("#{date}")
   
