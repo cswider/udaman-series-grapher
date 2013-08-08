@@ -192,7 +192,8 @@
 							
 							<% if !@annotations.nil? %>
 							<% @annotations.each do |a| %>
-							annotator.add(<%=a.date%>, String(<%=a.message%>));
+
+							annotator.add(<%=a.date%>, "#{<%=a.message%>}");
 							<% end %>
 							<% end %>
 
