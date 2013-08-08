@@ -19,8 +19,8 @@
 	<script src="../../d3.layout.js"></script>
 	<script src="../../rickshaw.min.js"></script>
 	<script src="../../graphRickshaw.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
-	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<link rel="stylesheet" href="../../rickshaw.min.css">
+	
 	
 	</head>
 
@@ -134,7 +134,6 @@
 							<h3><%=@chartHeader%></h3>
 							<div id="chart_container">
 						        <div id="y_axis"></div>
-								<div id="slider"></div>
 						        <div id="chart"></div>
 								<div id="timeline"></div>
 							</div>
@@ -185,11 +184,6 @@
 							    xFormatter: function(x) { xTemp = xarray[x]; return "" },
 							    yFormatter: function(y) { return (Math.floor(y * 10)/10) + "<br>" + "Date: " + xTemp }
 							} );
-							
-							var slider = new Rickshaw.Graph.RangeSlider({
-							    graph: graph,
-							    element: document.querySelector('#slider')
-							});
 							
 							var annotator = new Rickshaw.Graph.Annotate({
 							    graph: graph,
