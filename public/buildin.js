@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$("body").css("display", "none");
 	// $(".buildMeIn").hide(0);
-	$("body").fadeIn(500);
+	$("body").fadeIn(1500);
 	
 	$("a.transition").click(function(event){
 		        event.preventDefault();
