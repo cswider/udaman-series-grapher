@@ -74,7 +74,7 @@ post '/annotation/add/:series' do
   check_authentication
   
   @series = params[:series]
-  @date = params[:annotaion_date]
+  date = params[:annotaion_date]
   @message = params[:annotaion_message]
   arrayDate = []
   
@@ -85,12 +85,10 @@ post '/annotation/add/:series' do
   end
   
   date_hash = Hash[arrayDate.map.with_index.to_a]
-  @date_num = date_hash[@date]
+  @date_num = date_hash["#{date}"]
   
   sFile = Annotation.new series: @series, date: @date_num, message: @message
   sFile.save
-  
-  puts sFile.date
   
   redirect "/admin/graphview/#{@series}"
 end
