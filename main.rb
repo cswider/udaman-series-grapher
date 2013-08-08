@@ -89,7 +89,7 @@ post '/annotation/add/:series' do
   
   @date_num = arrayDate.index("#{date}")
   
-  sFile = Annotation.new series: @series, date: 20, message: @message
+  sFile = Annotation.new series: @series, date: @date_num, message: @message
   sFile.save
   
   redirect "/admin/graphview/#{@series}"
