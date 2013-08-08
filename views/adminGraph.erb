@@ -201,10 +201,7 @@
 							<% end %>
 							<% end %>
 							
-							var slider = new Rickshaw.Graph.RangeSlider({
-							    graph: graph,
-							    element: document.querySelector('#slider')
-							});
+							
 
 							var yAxis = new Rickshaw.Graph.Axis.Y({
 							    graph: graph
@@ -218,6 +215,11 @@
 
 
 							graph.render();
+							
+							var slider = new Rickshaw.Graph.RangeSlider({
+							    graph: graph,
+							    element: document.querySelector('#slider')
+							});
 						</script>					
 					</div>
 				</div>
