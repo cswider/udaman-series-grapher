@@ -74,8 +74,8 @@ post '/annotation/add/:series' do
   check_authentication
   
   @series = params[:series]
-  date = params[:annotaion_date]
-  @message = params[:annotaion_message]
+  date = params[:annotation_date]
+  @message = params[:annotation_message]
   arrayDate = []
   
   tFile = CachedFile.first(:name => "#{@series}")
@@ -85,7 +85,7 @@ post '/annotation/add/:series' do
   end
   
   date_hash = Hash[arrayDate.map.with_index.to_a]
-  @date_num = date_hash["#{date}"]
+  @date_num = date_hash[date]
   
   sFile = Annotation.new series: @series, date: 20, message: @message
   sFile.save
