@@ -87,7 +87,7 @@ post '/annotation/add/:series' do
   # date_hash = Hash[arrayDate.map.with_index.to_a]
   # @date_num = date_hash[date]
   
-  @date_num = arrayDate(date)
+  @date_num = arrayDate("#{date}")
   
   sFile = Annotation.new series: @series, date: 20, message: @message
   sFile.save
