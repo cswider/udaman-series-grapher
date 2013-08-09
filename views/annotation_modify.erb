@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	
+	<!-- META -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
+	
+	<!-- TITLE -->
+	<title>Login</title>
+	
+	<!-- IMPORTS -->
+	<link rel="stylesheet" href="/bootstrap/bootstrap-responsive.css">
+	<link rel="stylesheet" href="/bootstrap/bootstrap.css">
+	<script language="javascript" src="/bootstrap/bootstrap.js"></script>
+	<script language="javascript" src="/jquery.js"></script>
+	
+</head>
+
+	<!-- NAVBAR -->
+	<div class="navbar navbar-inverse navbar-fixed-top" align="left">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="/">Udaman Series Grapher</a>
+				<div class="nav-collapse collaspe">
+					<ul class="nav pull-right">
+						<li><a href="/">Home</a></li>
+						<li class="active"><a href="/admin">Admin</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- SPACER -->
+	<div class="container" id="spacer">
+		<p>
+			<br>
+			<br>
+			<br>
+		</p>
+	</div>
+	
+	<div class="row-fluid">
+		<div class="span4 offset4 well">
+			<div class="container">
+				<div class="row-fluid">
+					<h3>Annotation List</h3>
+					<h4>for series: <%=@seriesNum%></h4>
+				</div>
+				<div class="row-fluid">
+					<% if !@annotations.nil? %>
+					<%@annotations.each do |a| %>
+					<li><%=a.id%> | <%=a.message%></li>
+					<%end%>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<body>
+	<style type="text/css">
+
+	         /* Sticky footer styles
+	         -------------------------------------------------- */
+
+	         html,
+	         body {
+	           height: 100%;
+	           /* The html and body elements cannot have any padding or margin. */
+				background-image: url('http://i.imgur.com/jtiAs9M.png');
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-position: center;;
+	         }
+	</style>
+</body>
+
+</html>

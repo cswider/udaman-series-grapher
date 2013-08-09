@@ -234,6 +234,16 @@ get '/admin/graphview/:name' do
   erb :adminGraph
 end
 
+get '/anootation/modify/:series' do
+  check_authentication
+  
+  @seriesNum = params[:series]
+  
+  @annotations = Annotation.all(:series => @seriesNum)
+  
+  erb :annotation_modify
+end
+
 post '/request' do
   
   request = RequestSeries.new series: params[:seriesRequest]
